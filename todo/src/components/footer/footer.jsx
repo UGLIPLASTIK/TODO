@@ -1,18 +1,21 @@
-import { number ,element } from 'prop-types';
+import { number, element, func } from 'prop-types';
 
-const Footer = ({ children, count }) => {
+const Footer = ({ children, count = 0, clearFunc }) => {
   return (
     <footer className="footer">
       <span className="todo-count">{count} items left</span>
-      { children }
-      <button className="clear-completed">Clear completed</button>
+      {children}
+      <button className="clear-completed" onClick={clearFunc}>
+        Clear completed
+      </button>
     </footer>
-  )
-}
+  );
+};
 
 Footer.propTypes = {
   count: number,
-  children: element,
+  children: element.isRequired,
+  clearFunc: func.isRequired,
 };
 
 export default Footer;

@@ -1,4 +1,4 @@
-import './App.css'
+import './App.css';
 import NewTaskForm from '../new-task-form';
 import TaskList from '../task-list';
 import Footer from '../footer';
@@ -6,71 +6,96 @@ import TasksFilter from '../task-filter';
 import { useState } from 'react';
 
 function App() {
-
   const testTodos = [
     {
       text: 'Complited task',
-      time: null,
+      time: new Date(),
       status: 'active',
       id: 1,
     },
     {
       text: 'Editing task',
-      time: null,
+      time: new Date(),
       status: 'active',
       id: 2,
     },
     {
       text: 'Active task',
-      time: null,
+      time: new Date(),
       status: 'active',
       id: 3,
-    }
-  ]
+    },
+  ];
 
   const [data, setData] = useState(testTodos);
+  const [filter, setFilter] = useState(false);
+  const [filteredData, setFilteredData] = useState([]);
 
   const handlerToogle = (id) => {
-    const updatedTodos = data.map(todo => 
-    todo.id === id ? { ...todo, status: todo.status === 'active' ? 'completed' : 'active' } : todo
+    const updatedTodos = data.map((todo) =>
+      todo.id === id
+        ? { ...todo, status: todo.status === 'active' ? 'completed' : 'active' }
+        : todo,
     );
     setData(updatedTodos);
-  }
+  };
 
   const addTask = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
+    if (!formData.get('task')) return alert('Please, add the task');
     const task = {
       text: formData.get('task'),
-      time: null,
+      time: new Date(),
       status: 'active',
       id: Date.now(),
-    }
-    e.target.reset()
-    const newData = [ ...data, task]
-    setData(newData)
-  }
+    };
+    e.target.reset();
+    const newData = [...data, task];
+    setData(newData);
+  };
 
   const removeTask = (id) => {
-    console.log(id);
-    const updateData = data.filter(task => task.id != id)
-    setData(updateData)
-  }
+    const updateData = data.filter((task) => task.id != id);
+    setData(updateData);
+  };
 
+  const clearList = () => {
+    const newState = data.filter((task) => task.status != 'completed');
+    setData(newState);
+  };
+
+  const filterTasks = (e) => {
+    let filterButtons = [...e.currentTarget.childNodes];
+    filterButtons = filterButtons.map((el) => {
+      return el.firstElementChild;
+    });
+    for (let btn of filterButtons) {
+      btn.classList.remove('selected');
+    }
+    e.target.classList.add('selected');
+    const filterStatus = e.target.textContent.toLowerCase();
+    setFilter(filterStatus === 'all' ? false : filterStatus);
+    setFilteredData(data.filter((task) => task.status === filterStatus));
+  };
+
+  const countValue = data.filter((task) => task.status === 'active');
   return (
-    <section className='todoapp'>
+    <section className="todoapp">
       <h1>todos</h1>
-      <NewTaskForm addTask={addTask}/>
-      <section className='main'>
-        <TaskList todos={data}
-                  handlerToogle={handlerToogle}
-                  removeTaskFunc={removeTask}/>
-        <Footer count={data.length}>
-          <TasksFilter/>
+      <NewTaskForm addTask={addTask} />
+      <section className="main">
+        <TaskList
+          todos={filter ? filteredData : data}
+          handlerToogle={handlerToogle}
+          removeTaskFunc={removeTask}
+        />
+        <Footer count={countValue.length} clearFunc={clearList}>
+          <TasksFilter filterFunc={filterTasks} />
         </Footer>
       </section>
     </section>
-  )
+  );
 }
 
-export default App
+export default App;
