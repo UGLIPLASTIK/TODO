@@ -1,4 +1,5 @@
 import './App.css';
+import React from 'react';
 import NewTaskForm from '../new-task-form';
 import TaskList from '../task-list';
 import Footer from '../footer';
@@ -30,12 +31,11 @@ function App() {
   const [data, setData] = useState(testTodos);
   const [filter, setFilter] = useState(false);
   const [filteredData, setFilteredData] = useState([]);
+  const [editing, setEditing] = useState(false);
 
   const handlerToogle = (id) => {
     const updatedTodos = data.map((todo) =>
-      todo.id === id
-        ? { ...todo, status: todo.status === 'active' ? 'completed' : 'active' }
-        : todo,
+      todo.id === id ? { ...todo, status: todo.status === 'active' ? 'completed' : 'active' } : todo
     );
     setData(updatedTodos);
   };
@@ -79,7 +79,21 @@ function App() {
     setFilteredData(data.filter((task) => task.status === filterStatus));
   };
 
+  const openEditTaskFunc = (id) => {
+    const updatedTodos = data.map((todo) => (todo.id === id ? { ...todo, status: 'editing' } : todo));
+    setEditing((prev) => !prev);
+    setData(updatedTodos);
+  };
+
+  const saveChangesFunc = (inputValue, id) => {
+    console.log(inputValue, id);
+    const updatedTodos = data.map((todo) => (todo.id === id ? { ...todo, text: inputValue, status: 'active' } : todo));
+    setEditing((prev) => !prev);
+    setData(updatedTodos);
+  };
+
   const countValue = data.filter((task) => task.status === 'active');
+
   return (
     <section className="todoapp">
       <h1>todos</h1>
@@ -89,6 +103,8 @@ function App() {
           todos={filter ? filteredData : data}
           handlerToogle={handlerToogle}
           removeTaskFunc={removeTask}
+          editTaskFunc={!editing ? openEditTaskFunc : () => null}
+          saveChangesFunc={saveChangesFunc}
         />
         <Footer count={countValue.length} clearFunc={clearList}>
           <TasksFilter filterFunc={filterTasks} />

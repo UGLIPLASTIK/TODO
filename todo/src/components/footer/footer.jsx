@@ -1,3 +1,4 @@
+import React from 'react';
 import { number, element, func } from 'prop-types';
 
 const Footer = ({ children, count = 0, clearFunc }) => {
