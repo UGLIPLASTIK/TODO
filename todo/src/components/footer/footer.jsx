@@ -1,3 +1,4 @@
+import './footer.css';
 import React from 'react';
 import { number, element, func } from 'prop-types';
 

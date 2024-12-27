@@ -1,3 +1,4 @@
+import './task-list.css';
 import { arrayOf, object, func } from 'prop-types';
 import ListItem from '../list-item';
 import React from 'react';

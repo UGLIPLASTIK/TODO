@@ -86,7 +86,6 @@ function App() {
   };
 
   const saveChangesFunc = (inputValue, id) => {
-    console.log(inputValue, id);
     const updatedTodos = data.map((todo) => (todo.id === id ? { ...todo, text: inputValue, status: 'active' } : todo));
     setEditing((prev) => !prev);
     setData(updatedTodos);
