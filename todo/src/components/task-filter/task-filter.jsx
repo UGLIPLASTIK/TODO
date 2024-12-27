@@ -1,3 +1,4 @@
+import './task-filter.css';
 import { func } from 'prop-types';
 
 const TasksFilter = ({ filterFunc }) => {

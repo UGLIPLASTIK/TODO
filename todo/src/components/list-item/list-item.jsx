@@ -1,3 +1,4 @@
+import './list-item.css';
 import { object, func, string } from 'prop-types';
 import { formatDistanceToNow } from 'date-fns';
 import { useState, useEffect } from 'react';
