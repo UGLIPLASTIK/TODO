@@ -3,6 +3,7 @@ import pluginJs from '@eslint/js';
 import pluginReact from 'eslint-plugin-react';
 import eslintPluginPrettier from 'eslint-plugin-prettier';
 import eslintPluginJsxA11y from 'eslint-plugin-jsx-a11y';
+import eslintPluginImport from 'eslint-plugin-import';
 import babelEslintParser from '@babel/eslint-parser';
 
 /** @type {import('eslint').Linter.Config[]} */
@@ -18,7 +19,7 @@ export default [
       parserOptions: {
         ecmaVersion: 'latest',
         sourceType: 'module',
-        requireConfigFile: false, // Добавлено, если у вас нет babel.config.js
+        requireConfigFile: false,
         ecmaFeatures: {
           jsx: true,
         },
@@ -35,11 +36,12 @@ export default [
     rules: {
       'prefer-const': 'error',
       'react/react-in-jsx-scope': 'off',
-      'react/prop-types': 'warn',
+      'react/prop-types': 'error',
       'prettier/prettier': 'error',
       ...pluginJs.configs.recommended.rules,
       ...pluginReact.configs.flat.recommended.rules,
       ...eslintPluginPrettier.configs.recommended.rules,
+      ...eslintPluginImport.configs.recommended.rules,
     },
   },
 ];
