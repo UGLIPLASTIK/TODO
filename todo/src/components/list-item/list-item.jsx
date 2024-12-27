@@ -1,7 +1,7 @@
 import './list-item.css';
 import { object, func, string } from 'prop-types';
 import { formatDistanceToNow } from 'date-fns';
-import { useState, useEffect } from 'react';
+import { React, useState, useEffect } from 'react';
 
 const ListItem = ({ todo, toggleCheckbox, removeTaskFunc, status, editTaskFunk, saveChangesFunc }) => {
   const [createdTime, setCreatedTime] = useState(formatDistanceToNow(todo.time, { includeSeconds: true }));
@@ -53,6 +53,7 @@ ListItem.propTypes = {
   toggleCheckbox: func,
   removeTaskFunc: func,
   editTaskFunk: func,
+  saveChangesFunc: func,
   status: string,
 };
 

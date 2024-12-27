@@ -27,6 +27,8 @@ TaskList.propTypes = {
   todos: arrayOf(object),
   handlerToogle: func.isRequired,
   removeTaskFunc: func.isRequired,
+  editTaskFunc: func.isRequired,
+  saveChangesFunc: func.isRequired,
 };
 
 export default TaskList;

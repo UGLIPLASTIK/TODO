@@ -1,10 +1,9 @@
 import './App.css';
-import React from 'react';
+import React, { useState } from 'react';
 import NewTaskForm from '../new-task-form';
 import TaskList from '../task-list';
 import Footer from '../footer';
 import TasksFilter from '../task-filter';
-import { useState } from 'react';
 
 function App() {
   const testTodos = [
@@ -70,7 +69,7 @@ function App() {
     filterButtons = filterButtons.map((el) => {
       return el.firstElementChild;
     });
-    for (let btn of filterButtons) {
+    for (const btn of filterButtons) {
       btn.classList.remove('selected');
     }
     e.target.classList.add('selected');

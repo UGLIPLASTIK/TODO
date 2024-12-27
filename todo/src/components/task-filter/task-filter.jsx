@@ -1,4 +1,5 @@
 import './task-filter.css';
+import React from 'react';
 import { func } from 'prop-types';
 
 const TasksFilter = ({ filterFunc }) => {

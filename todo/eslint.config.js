@@ -25,15 +25,27 @@ export default [
         },
       },
     },
+    settings: {
+      'import/resolver': {
+        node: {
+          extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        },
+      },
+      react: {
+        version: 'detect',
+      },
+    },
   },
   {
     files: ['**/*.{js,jsx}'],
     plugins: {
+      import: eslintPluginImport,
       react: pluginReact,
       prettier: eslintPluginPrettier,
       'jsx-a11y': eslintPluginJsxA11y,
     },
     rules: {
+      'import/no-unresolved': 'error',
       'prefer-const': 'error',
       'react/react-in-jsx-scope': 'off',
       'react/prop-types': 'error',
