@@ -1,0 +1,24 @@
+.timer {
+	.btn {
+		cursor: pointer;
+		transition: color 0.2s ease-out;
+		color: #cc9a9a;
+		&:hover {
+			color: #af5b5e;
+		}
+	}
+	
+	.icon-pause:after {
+		content: '⏸';
+	}
+
+	.icon-play:after {
+		content: '▶';
+	} 
+}
+
+
+
+
+
+

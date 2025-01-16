@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import NewTaskForm from '../new-task-form';
 import TaskList from '../task-list';
 import Footer from '../footer';
@@ -8,19 +8,19 @@ import TasksFilter from '../task-filter';
 function App() {
   const testTodos = [
     {
-      text: 'Complited task',
+      text: 'tt',
       time: new Date(),
       status: 'active',
       id: 1,
     },
     {
-      text: 'Editing task',
+      text: 'tw',
       time: new Date(),
       status: 'active',
       id: 2,
     },
     {
-      text: 'Active task',
+      text: 'th',
       time: new Date(),
       status: 'active',
       id: 3,
