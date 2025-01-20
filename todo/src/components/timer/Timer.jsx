@@ -1,25 +1,25 @@
-import { func } from 'prop-types';
+import { number } from 'prop-types';
 import { useState, useEffect } from 'react';
 import { format } from 'date-fns';
 import './timer.scss';
 
-const Timer = () => {
-  const [secondsElapsed, setSecondsElapsed] = useState(0);
+const Timer = ({ time }) => {
+  format(new Date(time * 1000), 'mm:ss');
+  const [secondLeft, setsecondLeft] = useState(time);
   const [timerRunning, setTimerRunning] = useState(false);
-
   useEffect(() => {
     let interval = null;
-
-    if (timerRunning) {
-      interval = setInterval(() => {
-        setSecondsElapsed((prev) => prev + 1);
-      }, 1000);
-    } else if (!timerRunning && secondsElapsed !== 0) {
+    if (!timerRunning || secondLeft === 0) {
       clearInterval(interval);
+    } else if (timerRunning) {
+      interval = setInterval(() => {
+        setsecondLeft((prev) => prev - 1);
+      }, 1000);
     }
 
     return () => clearInterval(interval);
-  }, [timerRunning, secondsElapsed]);
+  }, [timerRunning, secondLeft]);
+
   const startTimer = () => {
     setTimerRunning(true);
   };
@@ -28,20 +28,20 @@ const Timer = () => {
     setTimerRunning(false);
   };
 
-  const formattedTime = format(new Date(secondsElapsed * 1000), 'mm:ss');
+  const formattedTime = format(new Date(secondLeft * 1000), 'mm:ss');
+  console.log(formattedTime);
 
   return (
     <div className="timer">
-      <span className="timer_time">{formattedTime}</span>
       <span className="btn icon-play" onClick={startTimer}></span>
       <span className="btn icon-pause" onClick={stopTimer}></span>
+      <span className="timer_time">{formattedTime}</span>
     </div>
   );
 };
 
 Timer.propTypes = {
-  onPlayFn: func,
-  onPauseFn: func,
+  time: number,
 };
 
 export default Timer;

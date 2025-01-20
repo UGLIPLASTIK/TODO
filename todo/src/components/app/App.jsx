@@ -4,30 +4,31 @@ import NewTaskForm from '../new-task-form';
 import TaskList from '../task-list';
 import Footer from '../footer';
 import TasksFilter from '../task-filter';
+import { minutesToSeconds } from 'date-fns';
 
 function App() {
-  const testTodos = [
-    {
-      text: 'tt',
-      time: new Date(),
-      status: 'active',
-      id: 1,
-    },
-    {
-      text: 'tw',
-      time: new Date(),
-      status: 'active',
-      id: 2,
-    },
-    {
-      text: 'th',
-      time: new Date(),
-      status: 'active',
-      id: 3,
-    },
-  ];
+  // const testTodos = [
+  //   {
+  //     text: 'tt',
+  //     time: new Date(),
+  //     status: 'active',
+  //     id: 1,
+  //   },
+  //   {
+  //     text: 'tw',
+  //     time: new Date(),
+  //     status: 'active',
+  //     id: 2,
+  //   },
+  //   {
+  //     text: 'th',
+  //     time: new Date(),
+  //     status: 'active',
+  //     id: 3,
+  //   },
+  // ];
 
-  const [data, setData] = useState(testTodos);
+  const [data, setData] = useState([]);
   const [filter, setFilter] = useState(false);
   const [filteredData, setFilteredData] = useState([]);
   const [editing, setEditing] = useState(false);
@@ -42,14 +43,18 @@ function App() {
   const addTask = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
+    console.log(formData);
+
     if (!formData.get('task')) return alert('Please, add the task');
     const task = {
       text: formData.get('task'),
       time: new Date(),
+      timer: minutesToSeconds(formData.get('time-min')) + Number(formData.get('time-sec')),
       status: 'active',
       id: Date.now(),
     };
     e.target.reset();
+    console.log(task);
     const newData = [...data, task];
     setData(newData);
   };

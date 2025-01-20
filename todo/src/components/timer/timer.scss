@@ -1,7 +1,9 @@
 .timer {
-	.timer_time {
-		font-size: 15px;
-		margin-right: 15px;
+	display: flex;
+	gap: 5px;
+	.timer_time {	
+		color: gray;
+		font-size: 13px;
 	}
 	.btn {
 		cursor: pointer;
