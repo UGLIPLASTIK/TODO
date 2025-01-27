@@ -1,33 +1,34 @@
 import './App.css';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import NewTaskForm from '../new-task-form';
 import TaskList from '../task-list';
 import Footer from '../footer';
 import TasksFilter from '../task-filter';
+import { minutesToSeconds } from 'date-fns';
 
 function App() {
-  const testTodos = [
-    {
-      text: 'Complited task',
-      time: new Date(),
-      status: 'active',
-      id: 1,
-    },
-    {
-      text: 'Editing task',
-      time: new Date(),
-      status: 'active',
-      id: 2,
-    },
-    {
-      text: 'Active task',
-      time: new Date(),
-      status: 'active',
-      id: 3,
-    },
-  ];
+  // const testTodos = [
+  //   {
+  //     text: 'tt',
+  //     time: new Date(),
+  //     status: 'active',
+  //     id: 1,
+  //   },
+  //   {
+  //     text: 'tw',
+  //     time: new Date(),
+  //     status: 'active',
+  //     id: 2,
+  //   },
+  //   {
+  //     text: 'th',
+  //     time: new Date(),
+  //     status: 'active',
+  //     id: 3,
+  //   },
+  // ];
 
-  const [data, setData] = useState(testTodos);
+  const [data, setData] = useState([]);
   const [filter, setFilter] = useState(false);
   const [filteredData, setFilteredData] = useState([]);
   const [editing, setEditing] = useState(false);
@@ -42,10 +43,12 @@ function App() {
   const addTask = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
+
     if (!formData.get('task')) return alert('Please, add the task');
     const task = {
       text: formData.get('task'),
       time: new Date(),
+      timer: minutesToSeconds(formData.get('time-min')) + Number(formData.get('time-sec')),
       status: 'active',
       id: Date.now(),
     };
@@ -101,7 +104,7 @@ function App() {
           todos={filter ? filteredData : data}
           handlerToogle={handlerToogle}
           removeTaskFunc={removeTask}
-          editTaskFunc={!editing ? openEditTaskFunc : () => null}
+          editTaskFunc={!editing ? openEditTaskFunc : null}
           saveChangesFunc={saveChangesFunc}
         />
         <Footer count={countValue.length} clearFunc={clearList}>

@@ -1,7 +1,8 @@
 import './list-item.css';
 import { object, func, string } from 'prop-types';
 import { formatDistanceToNow } from 'date-fns';
-import { React, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import Timer from '../timer';
 
 const ListItem = ({ todo, toggleCheckbox, removeTaskFunc, status, editTaskFunk, saveChangesFunc }) => {
   const [createdTime, setCreatedTime] = useState(formatDistanceToNow(todo.time, { includeSeconds: true }));
@@ -38,7 +39,8 @@ const ListItem = ({ todo, toggleCheckbox, removeTaskFunc, status, editTaskFunk, 
         />
         <label>
           <span className="description">{todo.text}</span>
-          <span className="created">{todo.time ? `created ${createdTime} ago` : 'time of creation unknown'}</span>
+          <Timer time={todo.timer} />
+          <span className="created">{todo.time ? `${createdTime} ago` : 'time of creation unknown'}</span>
         </label>
         <button onClick={editTaskFunk} className="icon icon-edit"></button>
         <button onClick={removeTaskFunc} className="icon icon-destroy"></button>
