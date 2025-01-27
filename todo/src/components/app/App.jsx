@@ -43,7 +43,6 @@ function App() {
   const addTask = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    console.log(formData);
 
     if (!formData.get('task')) return alert('Please, add the task');
     const task = {
@@ -54,7 +53,6 @@ function App() {
       id: Date.now(),
     };
     e.target.reset();
-    console.log(task);
     const newData = [...data, task];
     setData(newData);
   };
@@ -106,7 +104,7 @@ function App() {
           todos={filter ? filteredData : data}
           handlerToogle={handlerToogle}
           removeTaskFunc={removeTask}
-          editTaskFunc={!editing ? openEditTaskFunc : () => null}
+          editTaskFunc={!editing ? openEditTaskFunc : null}
           saveChangesFunc={saveChangesFunc}
         />
         <Footer count={countValue.length} clearFunc={clearList}>
