@@ -1,9 +1,9 @@
-import './App.css';
 import React, { useState } from 'react';
-import NewTaskForm from '../new-task-form';
-import TaskList from '../task-list';
 import Footer from '../footer';
+import NewTaskForm from '../new-task-form';
 import TasksFilter from '../task-filter';
+import TaskList from '../task-list';
+import './App.css';
 
 function App() {
   const testTodos = [
