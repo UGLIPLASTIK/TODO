@@ -1,19 +1,25 @@
-import { number } from 'prop-types';
+import { bool, number } from 'prop-types';
 import { useState, useEffect } from 'react';
 import { format } from 'date-fns';
 import './timer.scss';
 
-const Timer = ({ time }) => {
+const Timer = ({ time, isDone }) => {
+  if (time === 0) return;
   format(new Date(time * 1000), 'mm:ss');
-  const [secondLeft, setsecondLeft] = useState(time);
+  const [secondLeft, setSecondLeft] = useState(time);
   const [timerRunning, setTimerRunning] = useState(false);
+
   useEffect(() => {
     let interval = null;
+    if (isDone) {
+      clearInterval(interval);
+      setSecondLeft(0);
+    }
     if (!timerRunning || secondLeft === 0) {
       clearInterval(interval);
     } else if (timerRunning) {
       interval = setInterval(() => {
-        setsecondLeft((prev) => prev - 1);
+        setSecondLeft((prev) => prev - 1);
       }, 1000);
     }
 
@@ -29,7 +35,6 @@ const Timer = ({ time }) => {
   };
 
   const formattedTime = format(new Date(secondLeft * 1000), 'mm:ss');
-  console.log(formattedTime);
 
   return (
     <div className="timer">
@@ -42,6 +47,7 @@ const Timer = ({ time }) => {
 
 Timer.propTypes = {
   time: number,
+  isDone: bool,
 };
 
 export default Timer;
