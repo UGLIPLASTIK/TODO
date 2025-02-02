@@ -24,7 +24,7 @@ const Timer = ({ time, isDone }) => {
     }
 
     return () => clearInterval(interval);
-  }, [timerRunning, secondLeft]);
+  }, [timerRunning, secondLeft, isDone]);
 
   const startTimer = () => {
     setTimerRunning(true);
