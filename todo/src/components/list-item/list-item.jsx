@@ -39,7 +39,7 @@ const ListItem = ({ todo, toggleCheckbox, removeTaskFunc, status, editTaskFunk, 
         />
         <label>
           <span className="description">{todo.text}</span>
-          <Timer time={todo.timer} />
+          <Timer time={todo.timer} isDone={status === 'active' ? false : true} />
           <span className="created">{todo.time ? `${createdTime} ago` : 'time of creation unknown'}</span>
         </label>
         <button onClick={editTaskFunk} className="icon icon-edit"></button>
